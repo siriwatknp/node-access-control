@@ -30,8 +30,11 @@
   "dependencies": {
     "body-parser": "^1.13.3",
     "compression": "^1.5.2",
+    "cookie-parser": "^1.4.3",
     "cors": "^2.7.1",
+    "easy-session": "^2.0.1",
     "express": "^4.13.3",
+    "express-session": "^1.15.6",
     "morgan": "^1.8.0",
     "q": "^1.5.1",
     "resource-router-middleware": "^0.6.0"
