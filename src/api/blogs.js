@@ -37,15 +37,16 @@ app.get('/logout', (req, res) => {
     .then(() => res.send('logged out'))
 })
 
-app.get('/create', (req, res) => {
+app.get('/create', eSession.can('blog:create'), (req, res) => {
   // if(!req.session.hasRole('writer')) {
   //   res.sendStatus(403)
   //   return
   // }
   // return res.send('Blog Edit')
-  req.session.can('blog:create')
-    .then(() => res.send('Blog created'))
-    .catch(() => res.sendStatus(403))
+  // req.session.can('blog:create')
+  //   .then(() => res.send('Blog created'))
+  //   .catch(() => res.sendStatus(403))
+  res.send('Blog Edit')
 })
 
 app.get('/', (req, res) => {
