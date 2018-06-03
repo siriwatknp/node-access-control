@@ -1,9 +1,11 @@
-const roles = {
+const permissions = {
   manager: {
-    can: ['read', 'write', 'publish']
+    can: ['read', 'write', 'publish'],
+    inherits: ['writer']
   },
   writer: {
-    can: ['read', 'write']
+    can: ['read', 'write'],
+    inherits: ['guest']
   },
   guest: {
     can: ['read']
@@ -19,6 +21,22 @@ export default class RBAC {
   }
 
   static can(role, operation) {
-    return roles[role] && roles[role].can.indexOf(operation) !== -1
+    if (!this.roles[role]) {
+      // this role is not exist in permissions
+      return false
+    }
+    let $role = this.roles[role]
+
+    if ($role.can.indexOf(operation !== -1)) {
+      // this role can perform this operation
+      return true
+    }
+
+    if($role.inherits || $role.inherits.length === 0) {
+      // no inheritance
+      return false
+    }
+
+    return $role.inherits.some((childRole) => this.can(childRole, operation))
   }
 }
